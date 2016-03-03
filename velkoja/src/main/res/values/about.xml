@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="aboutLibraries_description_showIcon" translatable="false">true</string>
+    <string name="aboutLibraries_description_showVersion" translatable="false">true</string>
+    <string name="aboutLibraries_description_isOpenSource" translatable="false">true</string>
+    <string name="aboutÖobraries_description_licenseId" translatable="false">mit</string>
+    <string name="aboutLibraries_description_author" translatable="false">Jesse Jaara</string>
+    <string name="aboutLibraries_description_text">Manage your debts to friends in a easy manner</string>
+</resources>

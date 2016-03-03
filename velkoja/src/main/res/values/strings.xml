@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Velkoja</string>
+    <string name="dmi_people_list">People</string>
+    <string name="dmi_debts">Debts</string>
+    <string name="dmi_about">About</string>
+</resources>
