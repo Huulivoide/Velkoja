@@ -16,9 +16,14 @@
 #   public *;
 #}
 
+# -- About libraries --
 -keep class .R
 -keep class **.R$* {
     <fields>;
 }
 
+# -- Retrolambda --
 -dontwarn java.lang.invoke.*
+
+# -- Android Annotations --
+-dontwarn org.springframework.**
