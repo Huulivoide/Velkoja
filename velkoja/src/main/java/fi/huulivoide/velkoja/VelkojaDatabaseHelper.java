@@ -6,11 +6,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class VelkojaDatabaseHelper extends SQLiteOpenHelper
 {
+    private static VelkojaDatabaseHelper sInstance;
+
     private static final String CREATE_PEOPLE =
             "CREATE TABLE people (" +
             "id INTEGER PRIMARY KEY," +
-            "name TEXT NOT NULL," +
-            "iban TEXT NOT NULL);";
+            "name TEXT UNIQUE NOT NULL," +
+            "iban TEXT UNIQUE NOT NULL," +
+            "bic TEXT NOT NULL);";
 
     private static final String CREATE_DEBTS =
             "CREATE TABLE debts (" +
@@ -25,7 +28,7 @@ public class VelkojaDatabaseHelper extends SQLiteOpenHelper
     private static final String DB_NAME = "Velkoja.db";
     private static final int DB_VERSION = 1;
 
-    VelkojaDatabaseHelper(Context context) {
+    private VelkojaDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
@@ -43,9 +46,19 @@ public class VelkojaDatabaseHelper extends SQLiteOpenHelper
     }
 
     @Override
-    public void onConfigure(SQLiteDatabase db)
+    public void onOpen(SQLiteDatabase db)
     {
-        super.onConfigure(db);
-        db.setForeignKeyConstraintsEnabled(true);
+        super.onOpen(db);
+        db.execSQL("PRAGMA foreign_keys=ON;");
     }
+
+    public static synchronized VelkojaDatabaseHelper getInstance(Context context) {
+    // Use the application context, which will ensure that you
+    // don't accidentally leak an Activity's context.
+    // See this article for more information: http://bit.ly/6LRzfx
+    if (sInstance == null) {
+      sInstance = new VelkojaDatabaseHelper(context.getApplicationContext());
+    }
+    return sInstance;
+  }
 }
