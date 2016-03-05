@@ -1,8 +1,8 @@
 package fi.huulivoide.velkoja;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.mikepenz.aboutlibraries.LibsBuilder;
@@ -17,7 +17,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import org.androidannotations.annotations.EActivity;
 
 @EActivity
-public class VelkojaActivity extends Activity
+public class VelkojaActivity extends AppCompatActivity
 {
     private Drawer mDrawer;
     private PrimaryDrawerItem mMenuPeople;
@@ -71,7 +71,7 @@ public class VelkojaActivity extends Activity
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
 
