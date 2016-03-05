@@ -24,6 +24,13 @@ public class VelkojaActivity extends Activity
     private PrimaryDrawerItem mMenuDebts;
     private PrimaryDrawerItem mMenuAbout;
 
+    private LibsFragment buildAbouFragment() {
+        return new LibsBuilder()
+                .withLibraries("androidannotations")
+                .withFields(R.string.class.getFields())
+                .fragment();
+    }
+
     private boolean onMenuItemClick(View view, int position, IDrawerItem drawerItem) {
         Fragment frag;
 
@@ -32,7 +39,7 @@ public class VelkojaActivity extends Activity
         } else if (drawerItem == mMenuDebts){
             frag = new DebtsFragment_();
         } else if (drawerItem == mMenuAbout){
-            frag = new LibsBuilder().withFields(R.string.class.getFields()).fragment();
+            frag = buildAbouFragment();
         } else {
             return false;
         }
