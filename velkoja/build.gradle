@@ -59,6 +59,8 @@ apt {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'com.android.support:recyclerview-v7:23.2.0'
+    compile 'com.android.support:design:23.2.0'
 
     compile ('com.mikepenz:aboutlibraries:5.5.7@aar') {
         transitive = true
@@ -70,4 +72,6 @@ dependencies {
 
     apt "org.androidannotations:androidannotations:3.3.2"
     compile "org.androidannotations:androidannotations-api:3.3.2"
+
+    compile 'org.iban4j:iban4j:3.2.0'
 }
