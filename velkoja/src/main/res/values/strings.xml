@@ -3,4 +3,30 @@
     <string name="dmi_people_list">People</string>
     <string name="dmi_debts">Debts</string>
     <string name="dmi_about">About</string>
+
+    <string name="name_hint">Name</string>
+    <string name="iban_hint">IBAN</string>
+    <string name="bic_hint">BIC</string>
+
+    <string name="menu_search">Search</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_save">Save</string>
+
+    <string name="new_person_title">Add person</string>
+
+    <string name="name_error_empty">You must enter a name.</string>
+    <string name="name_error_exists">This name is already taken.</string>
+
+    <string name="iban_error_general">This is not a valid IBAN.</string>
+    <string name="iban_error_empty">You must enter a valid IBAN.</string>
+    <string name="iban_error_invalid_country">IBAN must start with a proper country code.</string>
+    <string name="iban_error_invalid_check">Country code must be followed by a check number.</string>
+    <string name="iban_error_length">This IBAN should be %1d characters long.</string>
+    <string name="iban_error_invalid_character">This IBAN contains invalid characters.</string>
+    <string name="iban_error_nomatch">You have made a typing error or this is not valid IBAN.</string>
+    <string name="iban_error_exists">This IBAN has already been registered.</string>
+
+    <string name="bic_error_general">This is not a valid BIC code.</string>
+    <string name="bic_error_empty">You must enter a valid BIC code.</string>
+    <string name="bic_error_length">BIC code must be 8 or 11 characters long.</string>
 </resources>
