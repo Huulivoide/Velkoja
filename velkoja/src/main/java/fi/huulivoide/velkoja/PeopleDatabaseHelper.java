@@ -18,6 +18,7 @@ public class PeopleDatabaseHelper
 
     private SQLiteStatement mPersonExistSt;
     private SQLiteStatement mIbanExistSt;
+    private SQLiteStatement mInsertSt;
 
     public PeopleDatabaseHelper(@NonNull Context context) {
         mContext = context;
@@ -25,6 +26,7 @@ public class PeopleDatabaseHelper
 
         mPersonExistSt = db.compileStatement("SELECT COUNT(id) FROM people WHERE LOWER(name)=LOWER(?);");
         mIbanExistSt = db.compileStatement("SELECT COUNT(id) FROM people WHERE iban=?;");
+        mInsertSt = db.compileStatement("INSERT INTO people(name, iban, bic) VALUES(?, ?, ?);");
     }
 
     /**
@@ -62,29 +64,31 @@ public class PeopleDatabaseHelper
      * @throws SQLException
      */
     public long insert(@NonNull String name, @NonNull String iban, @NonNull String bic) throws SQLException {
-        SQLiteStatement st = db.compileStatement("INSERT INTO people(name, iban, bic) VALUES(?, ?, ?);");
-        st.bindString(1, name);
-        st.bindString(2, iban);
-        st.bindString(3, bic);
+        mInsertSt.bindString(1, name);
+        mInsertSt.bindString(2, iban);
+        mInsertSt.bindString(3, bic);
 
-        return st.executeInsert();
+        return mInsertSt.executeInsert();
     }
 
     /**
      * Fetches all personal information of the given person.
      *
      * @param id id of the person to fetch
-     * @return person or NULL if the given id is invalid
+     * @return person object
+     * @throws NoSuchPersonException if the person is not found in the db
      */
     @Nullable
-    public Person findPerson(@NonNull long id) {
+    public Person findPerson(long id) throws NoSuchPersonException {
         Cursor c = db.query(PEOPLE_TABLE, ALL_COLUMNS, "id=?", new String[] {Long.toString(id)}, null, null, null);
 
         if (c.getCount() == 0) {
-            return null;
+            throw new NoSuchPersonException(id);
         }
 
-        return new Person(c.getLong(0), c.getString(1), c.getString(2), c.getString(3));
+        Person p = new Person(c.getLong(0), c.getString(1), c.getString(2), c.getString(3));
+        c.close();
+        return p;
     }
 
     /**
