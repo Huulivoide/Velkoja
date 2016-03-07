@@ -16,15 +16,18 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+
 import org.androidannotations.annotations.EActivity;
 
 @EActivity
-public class VelkojaActivity extends AppCompatActivity
+public class VelkojaActivity extends AppCompatActivity implements BackHandledFragment.BackHandlerInterface
 {
     private Drawer mDrawer;
     private PrimaryDrawerItem mMenuPeople;
     private PrimaryDrawerItem mMenuDebts;
     private PrimaryDrawerItem mMenuAbout;
+
+    private Fragment mCurrentFragment;
 
     private LibsFragment buildAbouFragment() {
         return new LibsBuilder()
@@ -87,10 +90,19 @@ public class VelkojaActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() == 0) {
-            this.finish();
-        } else {
-            getFragmentManager().popBackStack();
+        if (mCurrentFragment instanceof BackHandledFragment && !((BackHandledFragment)mCurrentFragment).onBackPressed())
+        {
+            if (getFragmentManager().getBackStackEntryCount() == 0) {
+                this.finish();
+            } else {
+                getFragmentManager().popBackStack();
+            }
         }
+    }
+
+    @Override
+    public void setSelectedFragment(BackHandledFragment backHandledFragment)
+    {
+        mCurrentFragment = backHandledFragment;
     }
 }
