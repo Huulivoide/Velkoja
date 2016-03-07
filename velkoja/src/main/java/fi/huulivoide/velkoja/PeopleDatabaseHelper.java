@@ -94,9 +94,10 @@ public class PeopleDatabaseHelper
      * @return cursor over found people
      */
     public Cursor query(@NonNull String text) {
+        String likyfied = "%" + text + "%";
         return db.query(PEOPLE_TABLE, ALL_COLUMNS,
-                        "name LIKE '%?%' OR iban LIKE '%?%' OR bic LIKE '%?%'", new String[] {text, text, text},
-                        null, null, null);
+                        "name LIKE ? OR iban LIKE ? OR bic LIKE ?", new String[] {likyfied, likyfied, likyfied},
+                        null, null, "name");
     }
 
     /**
