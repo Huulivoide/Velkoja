@@ -100,6 +100,10 @@ public class VelkojaActivity extends AppCompatActivity implements BackHandledFra
         }
     }
 
+    public void openDrawer() {
+        mDrawer.openDrawer();
+    }
+
     @Override
     public void setSelectedFragment(BackHandledFragment backHandledFragment)
     {
