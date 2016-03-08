@@ -26,6 +26,7 @@ public abstract class RecyclerViewCursorAdapterBase <V extends View> extends Rec
     }
 
     public void updateCursor(Cursor newCursor) {
+        mCursor.close();
         mCursor = newCursor;
         notifyDataSetChanged();
     }
