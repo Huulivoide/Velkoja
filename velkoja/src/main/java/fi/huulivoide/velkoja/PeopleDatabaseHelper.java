@@ -15,18 +15,22 @@ public class PeopleDatabaseHelper
 
     private Context mContext;
     private SQLiteDatabase db;
+    private DebtsDatabaseHelper mDebtsHelper;
 
     private SQLiteStatement mPersonExistSt;
     private SQLiteStatement mIbanExistSt;
     private SQLiteStatement mInsertSt;
+    private SQLiteStatement mPersonDeleteSt;
 
     public PeopleDatabaseHelper(@NonNull Context context) {
         mContext = context;
         db = VelkojaDatabaseHelper.getInstance(context).getWritableDatabase();
+        mDebtsHelper = new DebtsDatabaseHelper(context);
 
         mPersonExistSt = db.compileStatement("SELECT COUNT(id) FROM people WHERE LOWER(name)=LOWER(?);");
         mIbanExistSt = db.compileStatement("SELECT COUNT(id) FROM people WHERE iban=?;");
         mInsertSt = db.compileStatement("INSERT INTO people(name, iban, bic) VALUES(?, ?, ?);");
+        mPersonDeleteSt = db.compileStatement("DELETE FROM people WHERE id=?;");
     }
 
     /**
@@ -72,6 +76,40 @@ public class PeopleDatabaseHelper
     }
 
     /**
+     * Inserts the given person and all debts back to the database.
+     *
+     * @param person
+     * @return new id of the person.
+     */
+    public long insert(@NonNull Person person) {
+        long id = insert(person.name, person.iban, person.bic);
+
+        for (Debt debt: person.unpaid) {
+            mDebtsHelper.insert(debt.description, debt.sum, debt.due, id);
+        }
+
+        for (Debt debt: person.paid) {
+            mDebtsHelper.insert(debt.description, debt.sum, debt.due, debt.paid, id);
+        }
+
+        return id;
+    }
+
+    /**
+     * Delete person with the given id from the db.
+     *
+     * @param id person to be removed
+     * @return removed person or null if deleting failed.
+     * @throws NoSuchPersonException if the person is not found in the db
+     */
+    public Person delete(long id) throws NoSuchPersonException {
+        Person p = findPerson(id);
+
+        mPersonDeleteSt.bindLong(1, id);
+        return (mPersonDeleteSt.executeUpdateDelete() != 0) ? p : null;
+    }
+
+    /**
      * Fetches all personal information of the given person.
      *
      * @param id id of the person to fetch
@@ -86,7 +124,9 @@ public class PeopleDatabaseHelper
             throw new NoSuchPersonException(id);
         }
 
-        Person p = new Person(c.getLong(0), c.getString(1), c.getString(2), c.getString(3));
+        c.moveToFirst();
+        UnpaidPaidPair pair = mDebtsHelper.debtsFor(id);
+        Person p = new Person(id, c.getString(1), c.getString(2), c.getString(3), pair.unpaid, pair.paid);
         c.close();
         return p;
     }
@@ -112,5 +152,9 @@ public class PeopleDatabaseHelper
     public PeopleAdapter getAdapter() {
         Cursor c = db.query(PEOPLE_TABLE, ALL_COLUMNS, null, null, null, null, "name");
         return new PeopleAdapter(mContext, c);
+    }
+
+    public DebtsDatabaseHelper getDebtsHelper() {
+        return mDebtsHelper;
     }
 }
