@@ -1,36 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/people_list_layout">
+    android:layout_height="match_parent">
 
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/toolbar_layout"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/toolbar_people" />
-
-    <android.support.v7.widget.RecyclerView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar_people"
-        android:id="@+id/people_list"
-        android:layout_gravity="center_horizontal" />
+        android:orientation="vertical"
+        android:id="@+id/people_list_layout">
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/toolbar_layout"
+            android:id="@+id/toolbar_people" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/people_list"/>
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/new_person_fab"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_margin="16dp"
         android:scaleType="center"
+        android:layout_gravity="bottom|end"
+        app:layout_anchor="@id/people_list_layout"
+        app:layout_anchorGravity="bottom|end"
         app:ico_color="#FFF"
         app:ico_icon="gmd-add"
         app:ico_size="24dp" />
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
