@@ -11,9 +11,21 @@
     <string name="menu_search">Search</string>
     <string name="menu_share">Share</string>
     <string name="menu_save">Save</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_pay">Pay</string>
+
+    <string name="person_deleted">Person has been deleted</string>
+    <string name="undo">Undo</string>
+    <string name="paid">Paid: %1$s</string>
+    <string name="due">Due: %1$s</string>
 
     <string name="people_list_title">Known people</string>
     <string name="new_person_title">Add person</string>
+    <string name="person_title">Person\'s information</string>
+    <string name="payoff_title">Pay off %1$s</string>
+
+    <string name="paid_debts_tab_title">Paid debts</string>
+    <string name="unpaid_debts_tab_title">Unpaid debts</string>
 
     <string name="name_error_empty">You must enter a name.</string>
     <string name="name_error_exists">This name is already taken.</string>
