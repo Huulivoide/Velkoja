@@ -26,7 +26,6 @@ public class VelkojaActivity extends AppCompatActivity implements BackHandledFra
 {
     private Drawer mDrawer;
     private PrimaryDrawerItem mMenuPeople;
-    private PrimaryDrawerItem mMenuDebts;
     private PrimaryDrawerItem mMenuAbout;
 
     private Fragment mCurrentFragment;
@@ -45,8 +44,6 @@ public class VelkojaActivity extends AppCompatActivity implements BackHandledFra
 
         if (drawerItem == mMenuPeople) {
             frag = new PeopleListFragment_();
-        } else if (drawerItem == mMenuDebts){
-            frag = new DebtsFragment_();
         } else if (drawerItem == mMenuAbout){
             frag = buildAbouFragment();
         } else {
@@ -64,17 +61,13 @@ public class VelkojaActivity extends AppCompatActivity implements BackHandledFra
                 .withName(getResources().getString(R.string.dmi_people_list))
                 .withIcon(GoogleMaterial.Icon.gmd_people);
 
-        mMenuDebts = new PrimaryDrawerItem()
-                .withName(getResources().getString(R.string.dmi_debts))
-                .withIcon(GoogleMaterial.Icon.gmd_monetization_on);
-
         mMenuAbout = new PrimaryDrawerItem()
                 .withName(getResources().getString(R.string.dmi_about))
                 .withIcon(GoogleMaterial.Icon.gmd_help);
 
         mDrawer = new DrawerBuilder()
                 .withActivity(this)
-                .addDrawerItems(mMenuPeople, mMenuDebts, new DividerDrawerItem(), mMenuAbout)
+                .addDrawerItems(mMenuPeople, new DividerDrawerItem(), mMenuAbout)
                 .withOnDrawerItemClickListener(this::onMenuItemClick)
                 .build();
     }
