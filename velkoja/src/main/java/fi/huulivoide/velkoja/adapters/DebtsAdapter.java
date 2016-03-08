@@ -1,10 +1,14 @@
-package fi.huulivoide.velkoja;
+package fi.huulivoide.velkoja.adapters;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
+
+import fi.huulivoide.velkoja.model.Debt;
+import fi.huulivoide.velkoja.ui.DebtItemView;
+import fi.huulivoide.velkoja.ui.DebtItemView_;
+import fi.huulivoide.velkoja.ui.ViewWrapper;
 
 import java.util.List;
 

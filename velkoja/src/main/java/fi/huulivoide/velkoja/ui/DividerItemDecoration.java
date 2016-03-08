@@ -1,6 +1,6 @@
 // From: https://gist.github.com/zokipirlo/82336d89249e05bba5aa
 
-package fi.huulivoide.velkoja;
+package fi.huulivoide.velkoja.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;

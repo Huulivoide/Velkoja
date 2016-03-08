@@ -1,4 +1,4 @@
-package fi.huulivoide.velkoja;
+package fi.huulivoide.velkoja.model;
 
 public class NoSuchPersonException extends RuntimeException {
     public NoSuchPersonException(long id) {

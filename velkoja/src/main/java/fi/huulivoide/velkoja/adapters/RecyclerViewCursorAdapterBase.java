@@ -1,9 +1,11 @@
-package fi.huulivoide.velkoja;
+package fi.huulivoide.velkoja.adapters;
 
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+
+import fi.huulivoide.velkoja.ui.ViewWrapper;
 
 public abstract class RecyclerViewCursorAdapterBase <V extends View> extends RecyclerView.Adapter<ViewWrapper<V>>
 {

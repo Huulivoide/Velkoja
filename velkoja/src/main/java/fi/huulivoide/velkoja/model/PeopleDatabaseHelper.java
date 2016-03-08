@@ -1,4 +1,4 @@
-package fi.huulivoide.velkoja;
+package fi.huulivoide.velkoja.model;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import fi.huulivoide.velkoja.adapters.PeopleAdapter;
 
 public class PeopleDatabaseHelper
 {

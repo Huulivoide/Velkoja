@@ -1,10 +1,12 @@
-package fi.huulivoide.velkoja;
+package fi.huulivoide.velkoja.ui;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import fi.huulivoide.velkoja.R;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;

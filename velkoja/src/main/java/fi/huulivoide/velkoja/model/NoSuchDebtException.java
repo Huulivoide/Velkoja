@@ -2,7 +2,7 @@
  * Copyright (c) 2016, Jesse Jaara <jesse.jaara@gmail.com>
  */
 
-package fi.huulivoide.velkoja;
+package fi.huulivoide.velkoja.model;
 
 public class NoSuchDebtException extends RuntimeException {
     public NoSuchDebtException(long id) {

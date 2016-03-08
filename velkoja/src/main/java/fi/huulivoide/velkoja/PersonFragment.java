@@ -8,12 +8,22 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
+
+import fi.huulivoide.velkoja.adapters.DebtsAdapter;
+import fi.huulivoide.velkoja.model.Debt;
+import fi.huulivoide.velkoja.model.PeopleDatabaseHelper;
+import fi.huulivoide.velkoja.model.Person;
+import fi.huulivoide.velkoja.ui.DebtItemView;
+import fi.huulivoide.velkoja.ui.DividerItemDecoration;
 
 import org.androidannotations.annotations.EFragment;
 

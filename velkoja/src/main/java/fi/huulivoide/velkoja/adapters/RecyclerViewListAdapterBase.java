@@ -2,11 +2,13 @@
  * Copyright (c) 2016, Jesse Jaara <jesse.jaara@gmail.com>
  */
 
-package fi.huulivoide.velkoja;
+package fi.huulivoide.velkoja.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+
+import fi.huulivoide.velkoja.ui.ViewWrapper;
 
 import java.util.List;
 

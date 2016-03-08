@@ -1,4 +1,4 @@
-package fi.huulivoide.velkoja;
+package fi.huulivoide.velkoja.ui;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
+
+import fi.huulivoide.velkoja.R;
+import fi.huulivoide.velkoja.model.Debt;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;

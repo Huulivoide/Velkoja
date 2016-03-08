@@ -19,6 +19,13 @@ import android.widget.SearchView;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
+import fi.huulivoide.velkoja.adapters.PeopleAdapter;
+import fi.huulivoide.velkoja.model.PeopleDatabaseHelper;
+import fi.huulivoide.velkoja.model.Person;
+import fi.huulivoide.velkoja.ui.BackHandledFragment;
+import fi.huulivoide.velkoja.ui.DividerItemDecoration;
+import fi.huulivoide.velkoja.ui.PersonItemView;
+
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 

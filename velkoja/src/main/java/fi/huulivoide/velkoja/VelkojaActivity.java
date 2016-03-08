@@ -17,6 +17,8 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import fi.huulivoide.velkoja.ui.BackHandledFragment;
+
 import org.androidannotations.annotations.EActivity;
 
 @EActivity

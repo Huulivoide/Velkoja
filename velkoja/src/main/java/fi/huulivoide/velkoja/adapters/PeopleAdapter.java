@@ -1,10 +1,14 @@
-package fi.huulivoide.velkoja;
+package fi.huulivoide.velkoja.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
+
+import fi.huulivoide.velkoja.ui.PersonItemView_;
+import fi.huulivoide.velkoja.ui.PersonItemView;
+import fi.huulivoide.velkoja.ui.ViewWrapper;
 
 public class PeopleAdapter extends RecyclerViewCursorAdapterBase<PersonItemView>
 {

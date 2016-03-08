@@ -1,7 +1,6 @@
 package fi.huulivoide.velkoja;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -16,8 +15,16 @@ import android.view.ViewGroup;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
+import fi.huulivoide.velkoja.model.PeopleDatabaseHelper;
+
 import org.androidannotations.annotations.EFragment;
-import org.iban4j.*;
+
+import org.iban4j.BicFormatException;
+import org.iban4j.BicUtil;
+import org.iban4j.IbanFormatException;
+import org.iban4j.IbanUtil;
+import org.iban4j.InvalidCheckDigitException;
+import org.iban4j.UnsupportedCountryException;
 
 @EFragment
 public class NewPersonFragment extends Fragment

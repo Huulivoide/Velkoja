@@ -1,6 +1,6 @@
 // From: http://vinsol.com/blog/2014/10/01/handling-back-button-press-inside-fragments/
 
-package fi.huulivoide.velkoja;
+package fi.huulivoide.velkoja.ui;
 
 import android.app.Fragment;
 import android.os.Bundle;

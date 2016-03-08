@@ -1,4 +1,4 @@
-package fi.huulivoide.velkoja;
+package fi.huulivoide.velkoja.model;
 
 import android.content.Context;
 import android.database.Cursor;
