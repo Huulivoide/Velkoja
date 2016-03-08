@@ -29,6 +29,8 @@ public class VelkojaActivity extends AppCompatActivity implements BackHandledFra
 
     private Fragment mCurrentFragment;
 
+    private Long mPersonTobeDeleted;
+
     private LibsFragment buildAbouFragment() {
         return new LibsBuilder()
                 .withLibraries("androidannotations")
@@ -109,5 +111,17 @@ public class VelkojaActivity extends AppCompatActivity implements BackHandledFra
     public void setSelectedFragment(BackHandledFragment backHandledFragment)
     {
         mCurrentFragment = backHandledFragment;
+    }
+
+    public void queuePersonForDeletion(long id) {
+        mPersonTobeDeleted = id;
+    }
+
+    public Long personQueuedForDeletion() {
+        return mPersonTobeDeleted;
+    }
+
+    public void clearDeletionQueue() {
+        mPersonTobeDeleted = null;
     }
 }
