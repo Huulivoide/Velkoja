@@ -147,11 +147,7 @@ public class PersonFragment extends Fragment
     private void setupToolbar() {
         mToolbar.setTitle(R.string.person_title);
 
-        Drawable backIcon = new IconicsDrawable(mContext)
-                .icon(GoogleMaterial.Icon.gmd_arrow_back)
-                .sizeDp(24);
-        mToolbar.setNavigationIcon(backIcon);
-        mToolbar.setNavigationOnClickListener((v) -> getFragmentManager().popBackStack());
+        DefaultToolbarItems.addBack(this, mToolbar);
 
         Drawable deleteIcon = new IconicsDrawable(mContext)
                 .icon(GoogleMaterial.Icon.gmd_delete)

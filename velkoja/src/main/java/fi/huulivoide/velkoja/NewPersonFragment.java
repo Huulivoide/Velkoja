@@ -12,11 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
-
 import fi.huulivoide.velkoja.model.PeopleDatabaseHelper;
 
+import fi.huulivoide.velkoja.ui.DefaultToolbarItems;
 import org.androidannotations.annotations.EFragment;
 
 import org.iban4j.BicFormatException;
@@ -193,15 +191,6 @@ public class NewPersonFragment extends Fragment
     }
 
     /**
-     * Go back to PeopleList.
-     *
-     * @param v not used
-     */
-    private void onNavigateButtonClick(View v) {
-        getFragmentManager().popBackStack();
-    }
-
-    /**
      * Validate entry fields and insert data into db if valid, when save action
      * is clicked in the toolbar. Finally returns back to PeopleList.
      *
@@ -211,7 +200,7 @@ public class NewPersonFragment extends Fragment
     private boolean onSavePersonClick(MenuItem item) {
         if (dataIsValid()) {
             people.insert(getName(), getIban(), getBic());
-            onNavigateButtonClick(null);
+            getFragmentManager().popBackStack();
         }
 
         return true;
@@ -225,20 +214,8 @@ public class NewPersonFragment extends Fragment
     private void setupToolbar(Context context) {
         mToolbar.setTitle(R.string.new_person_title);
 
-        Drawable backIcon = new IconicsDrawable(context)
-                .icon(GoogleMaterial.Icon.gmd_arrow_back)
-                .sizeDp(24);
-        mToolbar.setNavigationIcon(backIcon);
-        mToolbar.setNavigationOnClickListener(this::onNavigateButtonClick);
-
-        Drawable saveIcon = new IconicsDrawable(context)
-                .icon(GoogleMaterial.Icon.gmd_done)
-                .sizeDp(24);
-
-        MenuItem saveItem = mToolbar.getMenu().add(getString(R.string.menu_save));
-        saveItem.setIcon(saveIcon);
-        saveItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        saveItem.setOnMenuItemClickListener(this::onSavePersonClick);
+        DefaultToolbarItems.addBack(this, mToolbar);
+        DefaultToolbarItems.addAccept(context, mToolbar, this::onSavePersonClick);
     }
 
     @Override
