@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Velkoja</string>
+    <string name="bic_error_empty">Syötä BIC-koodi.</string>
+    <string name="bic_error_length">BIC-koodin tulee olla on 8 tai 11 merkkiä pitkä.</string>
+    <string name="bic_error_general">Tämä ei ole oikeellinen BIC-koodi.</string>
+    <string name="bic_hint">BIC-koodi</string>
+    <string name="description_empty_error">Velalle on annettava kuvaus</string>
+    <string name="description_hint">Kuvaus</string>
+    <string name="dmi_about">Tietoja</string>
+    <string name="dmi_people_list">Tutut</string>
+    <string name="due">Maksettava: %1$s</string>
+    <string name="due_hint">Maksettava viimeistään</string>
+    <string name="iban_error_empty">Syötä IBAN-numero.</string>
+    <string name="iban_error_exists">Tämä IBAN-numero on jo rekisteröity.</string>
+    <string name="iban_error_general">Tämä ei ole oikeellinen IBAN-numero.</string>
+    <string name="iban_error_invalid_character">Tässä IBAN-numerossa on virhellinen merkki.</string>
+    <string name="iban_error_invalid_check">Maatunnuksen perässä tulee olla tarkistusnumero.</string>
+    <string name="iban_error_invalid_country">IBAN-numeron tulee alkaa maatunnuksella.</string>
+    <string name="iban_error_length">Tämän IBAN-numeron pitäisi olla %1d merkinmittainen.</string>
+    <string name="iban_error_nomatch">Joko olet tehnyt kirjoitusvirheen tai tämä ei ole oikeellinen IBAN-numero.</string>
+    <string name="iban_hint">IBAN-numero</string>
+    <string name="menu_delete">Poista</string>
+    <string name="menu_pay">Maksa</string>
+    <string name="menu_save">Tallenna</string>
+    <string name="menu_search">Etsi</string>
+    <string name="name_error_empty">Nimi on annettava.</string>
+    <string name="name_error_exists">Tämä nimi on jo rekisteröity.</string>
+    <string name="name_hint">Nimi</string>
+    <string name="new_debt_title">Lisää uusi velka</string>
+    <string name="new_person_title">Lisää uusi henkilö</string>
+    <string name="paid">Maksettu: %1$s</string>
+    <string name="paid_debts_tab_title">Maksetut</string>
+    <string name="payoff_title">Maksa %1$s velkoja</string>
+    <string name="people_list_title">Tutut</string>
+    <string name="person_deleted">Henkilö on poistettu</string>
+    <string name="person_title">Henkilön tiedot</string>
+    <string name="sum_empty_error">Määrä on annettava.</string>
+    <string name="sum_hint">Määrä</string>
+    <string name="sum_min_error">%1$s on pienin velan määrä.</string>
+    <string name="undo">Kumoa</string>
+    <string name="unpaid_debts_tab_title">Maksamattomat</string>
+</resources>
