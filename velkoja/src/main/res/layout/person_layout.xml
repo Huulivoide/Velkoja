@@ -1,78 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/toolbar_layout"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/toolbar_person"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="NAME"
-        android:id="@+id/person_name"
-        android:layout_gravity="center_horizontal" />
-
-    <include
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        layout="@layout/iban_bic_piece" />
-
-    <TabHost
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/debt_tabs">
+        android:id="@+id/main_person_content">
 
-        <LinearLayout
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/toolbar_layout"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/toolbar_person"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="NAME"
+            android:id="@+id/person_name"
+            android:layout_gravity="center_horizontal" />
+
+        <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/iban_bic_piece" />
+
+        <TabHost
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/debt_tabs">
 
-            <TabWidget
-                android:id="@android:id/tabs"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></TabWidget>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:orientation="vertical"
+                <TabWidget
+                    android:id="@android:id/tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/unpaid_debts">
+                    android:layout_height="wrap_content"></TabWidget>
 
-                    <android.support.v7.widget.RecyclerView
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/unpaid_debts_list"
-                        android:layout_gravity="center_horizontal" />
+                        android:id="@+id/unpaid_debts">
 
-                </LinearLayout>
+                        <android.support.v7.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/unpaid_debts_list"
+                            android:layout_gravity="center_horizontal" />
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/paid_debts">
+                    </LinearLayout>
 
-                    <android.support.v7.widget.RecyclerView
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/paid_debts_list"
-                        android:layout_gravity="center_horizontal" />
+                        android:id="@+id/paid_debts">
 
-                </LinearLayout>
+                        <android.support.v7.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/paid_debts_list"
+                            android:layout_gravity="center_horizontal" />
+
+                    </LinearLayout>
 
 
-            </FrameLayout>
-        </LinearLayout>
-    </TabHost>
+                </FrameLayout>
+            </LinearLayout>
+        </TabHost>
 
-</LinearLayout>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/new_debt_fab"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_margin="16dp"
+        android:scaleType="center"
+        android:layout_gravity="bottom|end"
+        app:layout_anchor="@id/main_person_content"
+        app:layout_anchorGravity="bottom|end"
+        app:ico_color="#FFF"
+        app:ico_icon="gmd-attach-money"
+        app:ico_size="24dp"/>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -23,9 +24,12 @@ import fi.huulivoide.velkoja.model.Debt;
 import fi.huulivoide.velkoja.model.PeopleDatabaseHelper;
 import fi.huulivoide.velkoja.model.Person;
 import fi.huulivoide.velkoja.ui.DebtItemView;
+import fi.huulivoide.velkoja.ui.DefaultToolbarItems;
 import fi.huulivoide.velkoja.ui.DividerItemDecoration;
 
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 
 import org.iban4j.Iban;
 
@@ -52,10 +56,29 @@ public class PersonFragment extends Fragment
     private TextView mIban;
     private TextView mBic;
 
+    @ViewById(R.id.new_debt_fab)
+    protected FloatingActionButton mNewDebtFab;
+
     private PeopleDatabaseHelper mPeople;
     private Person mPerson;
 
     private List<Long> mSelectedDebts = new ArrayList<>();
+
+    @Click(R.id.new_debt_fab)
+    protected void createNewDebt() {
+        Bundle args = new Bundle();
+        args.putLong("person", getArguments().getLong("id"));
+        NewDebtFragment frag = new NewDebtFragment_();
+        frag.setArguments(args);
+
+        getFragmentManager()
+            .beginTransaction()
+            .setCustomAnimations(R.animator.enter_from_left, R.animator.exit_to_right,
+                                 R.animator.enter_from_right, R.animator.exit_to_left)
+            .replace(R.id.content_frame, frag)
+            .addToBackStack(null)
+            .commit();
+    }
 
     /**
      * Go back to PeopleListFragment and tell it to delete current person.
