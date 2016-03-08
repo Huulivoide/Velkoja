@@ -81,6 +81,7 @@ public class VelkojaActivity extends AppCompatActivity implements BackHandledFra
         setContentView(R.layout.main_layout);
 
         setupDrawer();
+        onMenuItemClick(null, 0, mMenuPeople);
     }
 
     @Override
