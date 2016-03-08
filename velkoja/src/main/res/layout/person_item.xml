@@ -18,30 +18,9 @@
         android:textStyle="bold"
         android:textSize="25dp" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="IBAN"
-            android:id="@+id/iban_text"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="BIC"
-            android:id="@+id/bic_text"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-
-    </RelativeLayout>
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/iban_bic_piece" />
 
 </LinearLayout>
