@@ -23,10 +23,10 @@ public class VelkojaDatabaseHelper extends SQLiteOpenHelper
             "due INTEGER NOT NULL," +
             "paid INTEGER," +
             "person INTEGER NOT NULL," +
-            "FOREIGN KEY(person) REFERENCES people(id))";
+            "FOREIGN KEY(person) REFERENCES people(id) ON DELETE CASCADE)";
 
     private static final String DB_NAME = "Velkoja.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     private VelkojaDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -40,9 +40,20 @@ public class VelkojaDatabaseHelper extends SQLiteOpenHelper
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1)
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-        // Implement when/if the DB schema gets updated
+        if (oldVersion == 1) {
+            db.beginTransaction();
+
+            db.execSQL("ALTER TABLE debts RENAME TO old;");
+            db.execSQL(CREATE_DEBTS);
+            db.execSQL("INSERT INTO debts (id, description, sum, due, paid, person) " +
+                       "SELECT id, description, sum, due, paid, person FROM old;");
+            db.execSQL("DROP TABLE old;");
+
+            db.setTransactionSuccessful();
+            db.endTransaction();
+        }
     }
 
     @Override
