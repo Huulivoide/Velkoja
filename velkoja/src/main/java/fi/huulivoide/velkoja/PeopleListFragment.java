@@ -131,7 +131,7 @@ public class PeopleListFragment extends BackHandledFragment
      * Create and add openDrawer and search items to the toolbar.
      */
     private void setupToolbar() {
-        mToolbar.setTitle(R.string.person_title);
+        mToolbar.setTitle(R.string.people_list_title);
 
         SearchView sv = new SearchView(mContext);
         sv.setOnQueryTextListener(searchQueryListener);
