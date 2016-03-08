@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<string name="define_iban4j"></string>
+	<string name="define_iban4j" translatable="false"></string>
 	<!-- Author section -->
-	<string name="library_iban4j_author">Artut Mkrtchyan</string>
-	<string name="library_iban4j_authorWebsite">http://arturmkrtchyan.com</string>
+	<string name="library_iban4j_author" translatable="false">Artut Mkrtchyan</string>
+	<string name="library_iban4j_authorWebsite" translatable="false">http://arturmkrtchyan.com</string>
 	<!-- Library section -->
-	<string name="library_iban4j_libraryName">iban4j</string>
-	<string name="library_iban4j_libraryDescription">A Java library for generation and validation of the International Bank Account Numbers (IBAN ISO_13616) and Business Identifier Codes (BIC ISO_9362).</string>
-	<string name="library_iban4j_libraryWebsite">https://github.com/arturmkrtchyan/iban4j</string>
-	<string name="library_iban4j_libraryVersion">3.2.0</string>
+	<string name="library_iban4j_libraryName" translatable="false">iban4j</string>
+	<string name="library_iban4j_libraryDescription" translatable="false">A Java library for generation and validation of the International Bank Account Numbers (IBAN ISO_13616) and Business Identifier Codes (BIC ISO_9362).</string>
+	<string name="library_iban4j_libraryWebsite" translatable="false">https://github.com/arturmkrtchyan/iban4j</string>
+	<string name="library_iban4j_libraryVersion" translatable="false">3.2.0</string>
 	<!-- OpenSource section -->
-	<string name="library_iban4j_isOpenSource">true</string>
-	<string name="library_iban4j_repositoryLink">https://github.com/arturmkrtchyan/iban4j</string>
+	<string name="library_iban4j_isOpenSource" translatable="false">true</string>
+	<string name="library_iban4j_repositoryLink" translatable="false">https://github.com/arturmkrtchyan/iban4j</string>
 	<!-- ClassPath for autoDetect section -->
-	<string name="library_iban4j_classPath">org.iban4j.IbanUtil</string>
+	<string name="library_iban4j_classPath" translatable="false">org.iban4j.IbanUtil</string>
 	<!-- License section -->
-	<string name="library_iban4j_licenseId">apache_2_0</string>
+	<string name="library_iban4j_licenseId" translatable="false">apache_2_0</string>
 	<!-- Custom variables section -->
 </resources>

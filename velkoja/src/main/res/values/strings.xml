@@ -1,7 +1,6 @@
 <resources>
-    <string name="app_name">Velkoja</string>
+    <string name="app_name" translatable="false">Velkoja</string>
     <string name="dmi_people_list">People</string>
-    <string name="dmi_debts">Debts</string>
     <string name="dmi_about">About</string>
 
     <string name="name_hint">Name</string>
@@ -12,7 +11,6 @@
     <string name="due_hint">Pay by</string>
 
     <string name="menu_search">Search</string>
-    <string name="menu_share">Share</string>
     <string name="menu_save">Save</string>
     <string name="menu_delete">Delete</string>
     <string name="menu_pay">Pay</string>

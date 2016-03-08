@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Velkoja</string>
     <string name="bic_error_empty">Syötä BIC-koodi.</string>
     <string name="bic_error_length">BIC-koodin tulee olla on 8 tai 11 merkkiä pitkä.</string>
     <string name="bic_error_general">Tämä ei ole oikeellinen BIC-koodi.</string>
@@ -40,4 +39,5 @@
     <string name="sum_min_error">%1$s on pienin velan määrä.</string>
     <string name="undo">Kumoa</string>
     <string name="unpaid_debts_tab_title">Maksamattomat</string>
+    <string name="aboutLibraries_description_text">Hallitse tuttujesi pankkiyhteystietoja ja velkoja.</string>
 </resources>
