@@ -7,6 +7,9 @@
     <string name="name_hint">Name</string>
     <string name="iban_hint">IBAN</string>
     <string name="bic_hint">BIC</string>
+    <string name="description_hint">Description</string>
+    <string name="sum_hint">Sum</string>
+    <string name="due_hint">Pay by</string>
 
     <string name="menu_search">Search</string>
     <string name="menu_share">Share</string>
@@ -23,9 +26,14 @@
     <string name="new_person_title">Add person</string>
     <string name="person_title">Person\'s information</string>
     <string name="payoff_title">Pay off %1$s</string>
+    <string name="new_debt_title">Add debt</string>
 
     <string name="paid_debts_tab_title">Paid debts</string>
     <string name="unpaid_debts_tab_title">Unpaid debts</string>
+
+    <string name="description_empty_error">You need to describe this debt</string>
+    <string name="sum_empty_error">You need to enter a sum for this debt</string>
+    <string name="sum_min_error">Minimum sum is %1$s</string>
 
     <string name="name_error_empty">You must enter a name.</string>
     <string name="name_error_exists">This name is already taken.</string>
