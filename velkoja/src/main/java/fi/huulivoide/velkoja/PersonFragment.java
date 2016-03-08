@@ -27,6 +27,7 @@ import fi.huulivoide.velkoja.ui.DebtItemView;
 import fi.huulivoide.velkoja.ui.DefaultToolbarItems;
 import fi.huulivoide.velkoja.ui.DividerItemDecoration;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
@@ -37,32 +38,100 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-@EFragment
+@EFragment(R.layout.person_layout)
 public class PersonFragment extends Fragment
 {
     private static final NumberFormat mCurrencyFormatter = NumberFormat.getCurrencyInstance();
 
-    private Context mContext;
-    private Toolbar mToolbar;
-    private TabHost mTabHost;
-
     private MenuItem mDeleteItem;
     private MenuItem mPayItem;
-
-    private RecyclerView mPaid;
-    private RecyclerView mUnpaid;
-
-    private TextView mName;
-    private TextView mIban;
-    private TextView mBic;
-
-    @ViewById(R.id.new_debt_fab)
-    protected FloatingActionButton mNewDebtFab;
 
     private PeopleDatabaseHelper mPeople;
     private Person mPerson;
 
     private List<Long> mSelectedDebts = new ArrayList<>();
+
+
+    @ViewById(R.id.toolbar_person)
+    protected Toolbar mToolbar;
+
+    @ViewById(R.id.debt_tabs)
+    protected TabHost mTabHost;
+
+    @ViewById(R.id.paid_debts_list)
+    protected RecyclerView mPaid;
+
+    @ViewById(R.id.unpaid_debts_list)
+    protected RecyclerView mUnpaid;
+
+    @ViewById(R.id.person_name)
+    protected TextView mName;
+
+    @ViewById(R.id.iban_text)
+    protected TextView mIban;
+
+    @ViewById(R.id.bic_text)
+    protected TextView mBic;
+
+    @ViewById(R.id.new_debt_fab)
+    protected FloatingActionButton mNewDebtFab;
+
+
+    @AfterViews
+    protected void setupToolbar() {
+        mToolbar.setTitle(R.string.person_title);
+
+        DefaultToolbarItems.addBack(this, mToolbar);
+
+        Drawable deleteIcon = new IconicsDrawable(getActivity())
+                .icon(GoogleMaterial.Icon.gmd_delete)
+                .sizeDp(24);
+
+        mDeleteItem = mToolbar.getMenu().add(getString(R.string.menu_delete));
+        mDeleteItem.setIcon(deleteIcon);
+        mDeleteItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        mDeleteItem.setOnMenuItemClickListener(this::onDeletePersonClick);
+
+        Drawable payIcon = new IconicsDrawable(getActivity())
+                .icon(GoogleMaterial.Icon.gmd_payment)
+                .sizeDp(24);
+
+        mPayItem = mToolbar.getMenu().add(R.string.menu_pay);
+        mPayItem.setIcon(payIcon);
+        mPayItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        mPayItem.setOnMenuItemClickListener(this::paySelectedDebts);
+        mPayItem.setVisible(false);
+    }
+
+    @AfterViews
+    protected void setupTabs() {
+        mTabHost.setup();
+
+        TabHost.TabSpec unpaidTab = mTabHost.newTabSpec("unpaid");
+        unpaidTab.setIndicator(getString(R.string.unpaid_debts_tab_title));
+        unpaidTab.setContent(R.id.unpaid_debts);
+        mTabHost.addTab(unpaidTab);
+
+        TabHost.TabSpec paidTab = mTabHost.newTabSpec("paid");
+        paidTab.setIndicator(getString(R.string.paid_debts_tab_title));
+        paidTab.setContent(R.id.paid_debts);
+        mTabHost.addTab(paidTab);
+    }
+
+    @AfterViews
+    protected void setupRecyclers() {
+        fetchPerson();
+
+        mPaid.setHasFixedSize(true);
+        mPaid.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mPaid.addItemDecoration(new DividerItemDecoration(getActivity(), null));
+
+        mUnpaid.setHasFixedSize(true);
+        mUnpaid.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mUnpaid.addItemDecoration(new DividerItemDecoration(getActivity(), null));
+
+        updateAdapters();
+    }
 
     @Click(R.id.new_debt_fab)
     protected void createNewDebt() {
@@ -90,6 +159,15 @@ public class PersonFragment extends Fragment
         ((VelkojaActivity) getActivity()).queuePersonForDeletion(mPerson.id);
         getFragmentManager().popBackStack();
         return true;
+    }
+
+    private void fetchPerson() {
+        mPeople = new PeopleDatabaseHelper(getActivity());
+        mPerson = mPeople.findPerson(getArguments().getLong("id"));
+
+        mName.setText(mPerson.name);
+        mIban.setText(Iban.valueOf(mPerson.iban).toFormattedString());
+        mBic.setText(mPerson.bic);
     }
 
     /**
@@ -155,99 +233,15 @@ public class PersonFragment extends Fragment
         return true;
     }
 
-    private void findViews(View root) {
-        mToolbar = (Toolbar) root.findViewById(R.id.toolbar_person);
-        mTabHost = (TabHost) root.findViewById(R.id.debt_tabs);
-
-        mPaid = (RecyclerView) root.findViewById(R.id.paid_debts_list);
-        mUnpaid = (RecyclerView) root.findViewById(R.id.unpaid_debts_list);
-
-        mName = (TextView) root.findViewById(R.id.person_name);
-        mIban = (TextView) root.findViewById(R.id.iban_text);
-        mBic = (TextView) root.findViewById(R.id.bic_text);
-    }
-
-    private void setupToolbar() {
-        mToolbar.setTitle(R.string.person_title);
-
-        DefaultToolbarItems.addBack(this, mToolbar);
-
-        Drawable deleteIcon = new IconicsDrawable(mContext)
-                .icon(GoogleMaterial.Icon.gmd_delete)
-                .sizeDp(24);
-
-        mDeleteItem = mToolbar.getMenu().add(getString(R.string.menu_delete));
-        mDeleteItem.setIcon(deleteIcon);
-        mDeleteItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        mDeleteItem.setOnMenuItemClickListener(this::onDeletePersonClick);
-
-        Drawable payIcon = new IconicsDrawable(mContext)
-                .icon(GoogleMaterial.Icon.gmd_payment)
-                .sizeDp(24);
-
-        mPayItem = mToolbar.getMenu().add(R.string.menu_pay);
-        mPayItem.setIcon(payIcon);
-        mPayItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        mPayItem.setOnMenuItemClickListener(this::paySelectedDebts);
-        mPayItem.setVisible(false);
-    }
-
-    private void setupTabs() {
-        mTabHost.setup();
-
-        TabHost.TabSpec unpaidTab = mTabHost.newTabSpec("unpaid");
-        unpaidTab.setIndicator(getString(R.string.unpaid_debts_tab_title));
-        unpaidTab.setContent(R.id.unpaid_debts);
-        mTabHost.addTab(unpaidTab);
-
-        TabHost.TabSpec paidTab = mTabHost.newTabSpec("paid");
-        paidTab.setIndicator(getString(R.string.paid_debts_tab_title));
-        paidTab.setContent(R.id.paid_debts);
-        mTabHost.addTab(paidTab);
-    }
-
     private DebtsAdapter getUnpaidAdapter() {
-        DebtsAdapter unpaidAdapter = new DebtsAdapter(mContext, mPerson.unpaid);
+        DebtsAdapter unpaidAdapter = new DebtsAdapter(getActivity(), mPerson.unpaid);
         unpaidAdapter.setOnClickListener(this::selectDebtForPaying);
 
         return unpaidAdapter;
     }
 
     private void updateAdapters() {
-        mPaid.setAdapter(new DebtsAdapter(mContext, mPerson.paid));
+        mPaid.setAdapter(new DebtsAdapter(getActivity(), mPerson.paid));
         mUnpaid.setAdapter(getUnpaidAdapter());
-    }
-
-    private void setupRecyclers() {
-        mPaid.setHasFixedSize(true);
-        mPaid.setLayoutManager(new LinearLayoutManager(mContext));
-        mPaid.addItemDecoration(new DividerItemDecoration(mContext, null));
-
-        mUnpaid.setHasFixedSize(true);
-        mUnpaid.setLayoutManager(new LinearLayoutManager(mContext));
-        mUnpaid.addItemDecoration(new DividerItemDecoration(mContext, null));
-
-        updateAdapters();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mContext = getActivity();
-        View view = inflater.inflate(R.layout.person_layout, container, false);
-
-        mPeople = new PeopleDatabaseHelper(getActivity());
-        mPerson = mPeople.findPerson(getArguments().getLong("id"));
-
-        findViews(view);
-
-        setupToolbar();
-        setupTabs();
-        setupRecyclers();
-
-        mName.setText(mPerson.name);
-        mIban.setText(Iban.valueOf(mPerson.iban).toFormattedString());
-        mBic.setText(mPerson.bic);
-
-        return view;
     }
 }

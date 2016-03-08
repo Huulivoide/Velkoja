@@ -19,9 +19,10 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import fi.huulivoide.velkoja.ui.BackHandledFragment;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 
-@EActivity
+@EActivity(R.layout.main_layout)
 public class VelkojaActivity extends AppCompatActivity implements BackHandledFragment.BackHandlerInterface
 {
     private Drawer mDrawer;
@@ -31,6 +32,26 @@ public class VelkojaActivity extends AppCompatActivity implements BackHandledFra
     private Fragment mCurrentFragment;
 
     private Long mPersonTobeDeleted;
+
+    @AfterViews
+    protected void setupDrawer() {
+        mMenuPeople = new PrimaryDrawerItem()
+                .withName(getResources().getString(R.string.dmi_people_list))
+                .withIcon(GoogleMaterial.Icon.gmd_people);
+
+        mMenuAbout = new PrimaryDrawerItem()
+                .withName(getResources().getString(R.string.dmi_about))
+                .withIcon(GoogleMaterial.Icon.gmd_help);
+
+        mDrawer = new DrawerBuilder()
+                .withActivity(this)
+                .addDrawerItems(mMenuPeople, new DividerDrawerItem(), mMenuAbout)
+                .withOnDrawerItemClickListener(this::onMenuItemClick)
+                .build();
+
+        // Open up the people view
+        onMenuItemClick(null, 0, mMenuPeople);
+    }
 
     private LibsFragment buildAbouFragment() {
         return new LibsBuilder()
@@ -54,31 +75,6 @@ public class VelkojaActivity extends AppCompatActivity implements BackHandledFra
         mDrawer.closeDrawer();
 
         return true;
-    }
-
-    private void setupDrawer() {
-        mMenuPeople = new PrimaryDrawerItem()
-                .withName(getResources().getString(R.string.dmi_people_list))
-                .withIcon(GoogleMaterial.Icon.gmd_people);
-
-        mMenuAbout = new PrimaryDrawerItem()
-                .withName(getResources().getString(R.string.dmi_about))
-                .withIcon(GoogleMaterial.Icon.gmd_help);
-
-        mDrawer = new DrawerBuilder()
-                .withActivity(this)
-                .addDrawerItems(mMenuPeople, new DividerDrawerItem(), mMenuAbout)
-                .withOnDrawerItemClickListener(this::onMenuItemClick)
-                .build();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_layout);
-
-        setupDrawer();
-        onMenuItemClick(null, 0, mMenuPeople);
     }
 
     @Override

@@ -15,8 +15,10 @@ import android.view.ViewGroup;
 import fi.huulivoide.velkoja.model.PeopleDatabaseHelper;
 
 import fi.huulivoide.velkoja.ui.DefaultToolbarItems;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 
+import org.androidannotations.annotations.ViewById;
 import org.iban4j.BicFormatException;
 import org.iban4j.BicUtil;
 import org.iban4j.IbanFormatException;
@@ -24,15 +26,41 @@ import org.iban4j.IbanUtil;
 import org.iban4j.InvalidCheckDigitException;
 import org.iban4j.UnsupportedCountryException;
 
-@EFragment
+@EFragment(R.layout.new_person)
 public class NewPersonFragment extends Fragment
 {
-    private Toolbar mToolbar;
-    private TextInputLayout mName;
-    private TextInputLayout mIban;
-    private TextInputLayout mBic;
-
     private PeopleDatabaseHelper people;
+
+    @ViewById(R.id.toolbar_new_person)
+    protected Toolbar mToolbar;
+
+    @ViewById(R.id.name_wrapper)
+    protected TextInputLayout mName;
+
+    @ViewById(R.id.iban_wrapper)
+    protected TextInputLayout mIban;
+
+    @ViewById(R.id.bic_wrapper)
+    protected TextInputLayout mBic;
+
+    @AfterViews
+    protected void setupToolbar() {
+        mToolbar.setTitle(R.string.new_person_title);
+
+        DefaultToolbarItems.addBack(this, mToolbar);
+        DefaultToolbarItems.addAccept(getActivity(), mToolbar, this::onSavePersonClick);
+    }
+
+    @AfterViews
+    protected void setupCapsFilters() {
+        mIban.getEditText().setFilters(new InputFilter[] { new InputFilter.AllCaps() });
+        mBic.getEditText().setFilters(new InputFilter[] { new InputFilter.AllCaps() });
+    }
+
+    @AfterViews
+    protected void initDBHelper() {
+        people = new PeopleDatabaseHelper(getActivity());
+    }
 
     /**
      * Extract and sanitize text from the name field.
@@ -204,37 +232,5 @@ public class NewPersonFragment extends Fragment
         }
 
         return true;
-    }
-
-    /**
-     * Add buttons and titles to the toolbar.
-     *
-     * @param context used for creating drawables from Iconics
-     */
-    private void setupToolbar(Context context) {
-        mToolbar.setTitle(R.string.new_person_title);
-
-        DefaultToolbarItems.addBack(this, mToolbar);
-        DefaultToolbarItems.addAccept(context, mToolbar, this::onSavePersonClick);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
-        View v = inflater.inflate(R.layout.new_person, container, false);
-
-        mName = (TextInputLayout) v.findViewById(R.id.name_wrapper);
-        mIban = (TextInputLayout) v.findViewById(R.id.iban_wrapper);
-        mBic = (TextInputLayout) v.findViewById(R.id.bic_wrapper);
-
-        mIban.getEditText().setFilters(new InputFilter[] { new InputFilter.AllCaps() });
-        mBic.getEditText().setFilters(new InputFilter[] { new InputFilter.AllCaps() });
-
-        mToolbar = (Toolbar) v.findViewById(R.id.toolbar_new_person);
-        setupToolbar(container.getContext());
-
-        people = new PeopleDatabaseHelper(container.getContext());
-
-        return v;
     }
 }

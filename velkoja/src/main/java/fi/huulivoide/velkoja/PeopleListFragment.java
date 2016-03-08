@@ -1,6 +1,5 @@
 package fi.huulivoide.velkoja;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -26,19 +25,66 @@ import fi.huulivoide.velkoja.ui.BackHandledFragment;
 import fi.huulivoide.velkoja.ui.DividerItemDecoration;
 import fi.huulivoide.velkoja.ui.PersonItemView;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 
-@EFragment
+@EFragment(R.layout.people_list_layout)
 public class PeopleListFragment extends BackHandledFragment
 {
-    private Context mContext;
-    private Toolbar mToolbar;
-    private RecyclerView mList;
+    private PeopleDatabaseHelper mPeople;
     private PeopleAdapter mAdapter;
     private MenuItem mSearchItem;
 
-    private PeopleDatabaseHelper mPeople;
+    @ViewById(R.id.toolbar_people)
+    protected Toolbar mToolbar;
+
+    @ViewById(R.id.people_list)
+    protected RecyclerView mList;
+
+    /**
+     * Initialize and decorate the actual list widget.
+     */
+    @AfterViews
+    protected void setupList() {
+        mPeople = new PeopleDatabaseHelper(getActivity());
+        mAdapter = mPeople.getAdapter();
+        mAdapter.setOnClickListener(this::showPerson);
+
+        mList.setHasFixedSize(true);
+        mList.addItemDecoration(new DividerItemDecoration(getActivity(), null));
+        mList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mList.setAdapter(mAdapter);
+    }
+
+    /**
+     * Create and add openDrawer and search items to the toolbar.
+     */
+    @AfterViews
+    protected void setupToolbar() {
+        mToolbar.setTitle(R.string.people_list_title);
+
+        SearchView sv = new SearchView(getActivity());
+        sv.setOnQueryTextListener(searchQueryListener);
+
+        Drawable searchIcon = new IconicsDrawable(getActivity())
+                .icon(GoogleMaterial.Icon.gmd_search)
+                .sizeDp(24);
+
+        mSearchItem = mToolbar.getMenu().add(getString(R.string.menu_search));
+        mSearchItem.setIcon(searchIcon);
+        mSearchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+        mSearchItem.setActionView(sv);
+        MenuItemCompat.setOnActionExpandListener(mSearchItem, searchExpandListener);
+
+        Drawable backIcon = new IconicsDrawable(getActivity())
+                .icon(GoogleMaterial.Icon.gmd_menu)
+                .sizeDp(24);
+        mToolbar.setNavigationIcon(backIcon);
+        mToolbar.setNavigationOnClickListener((p) -> ((VelkojaActivity) getActivity()).openDrawer());
+
+    }
 
     /**
      * Filters the list when text is entered in the SearchView.
@@ -68,7 +114,7 @@ public class PeopleListFragment extends BackHandledFragment
             SearchView sv = ((SearchView) menuItem.getActionView());
             sv.setQuery("", true);
 
-            InputMethodManager imm = (InputMethodManager) mContext.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(sv.getWindowToken(), 0);
 
             return true;
@@ -119,63 +165,6 @@ public class PeopleListFragment extends BackHandledFragment
             .replace(R.id.content_frame, frag)
             .addToBackStack(null)
             .commit();
-    }
-
-    /**
-     * Initialize and decorate the actual list widget.
-     */
-    private void setupList() {
-        mAdapter = mPeople.getAdapter();
-        mAdapter.setOnClickListener(this::showPerson);
-
-        mList.setHasFixedSize(true);
-        mList.addItemDecoration(new DividerItemDecoration(mContext, null));
-        mList.setLayoutManager(new LinearLayoutManager(mContext));
-        mList.setAdapter(mAdapter);
-    }
-
-    /**
-     * Create and add openDrawer and search items to the toolbar.
-     */
-    private void setupToolbar() {
-        mToolbar.setTitle(R.string.people_list_title);
-
-        SearchView sv = new SearchView(mContext);
-        sv.setOnQueryTextListener(searchQueryListener);
-
-        Drawable searchIcon = new IconicsDrawable(mContext)
-                .icon(GoogleMaterial.Icon.gmd_search)
-                .sizeDp(24);
-
-        mSearchItem = mToolbar.getMenu().add(getString(R.string.menu_search));
-        mSearchItem.setIcon(searchIcon);
-        mSearchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
-        mSearchItem.setActionView(sv);
-        MenuItemCompat.setOnActionExpandListener(mSearchItem, searchExpandListener);
-
-        Drawable backIcon = new IconicsDrawable(mContext)
-                .icon(GoogleMaterial.Icon.gmd_menu)
-                .sizeDp(24);
-        mToolbar.setNavigationIcon(backIcon);
-        mToolbar.setNavigationOnClickListener((p) -> ((VelkojaActivity) getActivity()).openDrawer());
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
-        mContext = container.getContext();
-        mPeople = new PeopleDatabaseHelper(container.getContext());
-
-        View v = inflater.inflate(R.layout.people_list_layout, container, false);
-
-        mToolbar = (Toolbar) v.findViewById(R.id.toolbar_people);
-        mList = (RecyclerView) v.findViewById(R.id.people_list);
-
-        setupList();
-        setupToolbar();
-
-        return v;
     }
 
     @Override
