@@ -33,8 +33,8 @@ public class DebtsDatabaseHelper {
     }
 
     /**
-     * Returns a readonly lists unpaid and paid debts for the given person.
-     * For unexisting persons the list will just be empty.
+     * Returns a lists of unpaid and paid debts for the given person.
+     * For unexisting persons the lists will just be empty.
      *
      * @param person id of the person, whose debts to fetch
      * @return unmodifiable list

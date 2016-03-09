@@ -171,6 +171,7 @@ public class PeopleListFragment extends BackHandledFragment
     public void onResume() {
         super.onResume();
 
+        // Check if we have a pending delete person request
         VelkojaActivity activity = (VelkojaActivity) getActivity();
         Long person = activity.personQueuedForDeletion();
         if (person != null) {
@@ -181,6 +182,7 @@ public class PeopleListFragment extends BackHandledFragment
 
     @Override
     public boolean onBackPressed() {
+        // Hide the search bar
         if (mSearchItem.isActionViewExpanded()) {
             mSearchItem.collapseActionView();
             return true;

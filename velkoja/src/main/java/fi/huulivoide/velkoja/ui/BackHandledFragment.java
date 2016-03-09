@@ -5,6 +5,9 @@ package fi.huulivoide.velkoja.ui;
 import android.app.Fragment;
 import android.os.Bundle;
 
+/**
+ * Allow fragment to preprocess back key presses.
+ */
 public abstract class BackHandledFragment extends Fragment
 {
     protected BackHandlerInterface backHandlerInterface;

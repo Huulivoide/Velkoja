@@ -79,11 +79,13 @@ public class VelkojaActivity extends AppCompatActivity implements BackHandledFra
 
     @Override
     protected void attachBaseContext(Context newBase) {
+        // Enable parsing of Android-Iconics XML tags in layouts.
         super.attachBaseContext(IconicsContextWrapper.wrap(newBase));
     }
 
     @Override
     public void onBackPressed() {
+        // Fragments implementing BackHandledFragment preprocess back button presses first.
         if (mCurrentFragment instanceof BackHandledFragment && !((BackHandledFragment)mCurrentFragment).onBackPressed())
         {
             if (getFragmentManager().getBackStackEntryCount() == 0) {
